@@ -1,3 +1,10 @@
 *.sdf
 *.user
-
+*.suo
+*.ncb
+*.sbr
+*.*log
+Debug/*
+Release/*
+ipch
+*.opensdf
