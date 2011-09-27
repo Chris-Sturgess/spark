@@ -1,3 +1,7 @@
+// main.cpp
+// Program entry point, it is responsible for creating the environment
+//  and initializing the game
+
 #include <SFML/Graphics.hpp>
 
 int main()
