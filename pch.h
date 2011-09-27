@@ -5,5 +5,13 @@
 
 #pragma once
 
+//SFML headers
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+
+//iostream headers
+#include <iostream>
+#include <string>
+
+//makes things a lot nicer
+using namespace std;

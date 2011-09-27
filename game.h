@@ -23,7 +23,10 @@ private:
 	void render( );
 
 	//updates the game state, given the elapsed frame time
-	void update( double );
+	void update( float );
+
+	//processes a single event, returns false if there were none to handle
+	bool process( );
 
 
 	/* private data */
