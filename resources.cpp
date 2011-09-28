@@ -6,7 +6,8 @@ namespace resources
 {
 	/* static data */
 	// images
-	static map< string, resource<sf::Image> > IMAGES;
+	typedef map< string, resource<sf::Image> > IMAGELIST;
+	static IMAGELIST IMAGES;
 
 	// loads an image from a file
 	resource<sf::Image> loadImage( const string& file )
@@ -30,9 +31,25 @@ namespace resources
 		auto r = resource<sf::Image>( pimage );
 
 		// store it and return
-		IMAGES.insert( make_pair( file, r ) );
+		IMAGES.insert( make_pair(file, r) );
 
 		clog << "Successfully loaded image resource \"" << file << "\"" << endl;
 		return r;
+	}
+
+	// cleans resources for ones that are no longer used
+	void clean( )
+	{
+		clog << "Staring with " << IMAGES.size() << " images, cleaned down to ";
+
+		// cleans out resources now only owned by the IMAGES list
+		auto i = IMAGES.cbegin();
+		for(; i != IMAGES.cend(); )
+		{
+			if( i->second.instances() == 1 ) IMAGES.erase(i++);
+			else ++i;
+		}
+
+		clog << IMAGES.size() << " images" << endl;
 	}
 }

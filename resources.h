@@ -69,6 +69,9 @@ namespace resources
 
 	// loads an image from a file
 	resource<sf::Image> loadImage( const string& file );
+
+	// cleans the resource banks
+	void clean( );
 }
 
 // image resource

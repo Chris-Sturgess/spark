@@ -14,7 +14,7 @@ public:
 	~game(void);
 
 	//runs the game loop
-	void loop( );
+	int loop( );
 
 private:
 	/* internal functions */

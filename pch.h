@@ -12,6 +12,7 @@
 //iostream headers
 #include <iostream>
 #include <string>
+#include <map>
 
 //makes things a lot nicer
 using namespace std;

@@ -25,7 +25,7 @@ void game::render( )
 	_window.Display();
 }
 
-void game::loop()
+int game::loop()
 {
 	//start the clock
 	sf::Clock clock;
@@ -43,6 +43,8 @@ void game::loop()
 		//process all events in cue
 		while( process() ) ;
 	}
+
+	return EXIT_SUCCESS;
 }
 
 bool game::process()
