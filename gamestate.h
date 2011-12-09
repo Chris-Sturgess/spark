@@ -3,5 +3,5 @@
 
 enum GameState
 {
-	GS_WORLD,	//the game is currently in world mode
+	GS_WORLD,	// the game is currently in world mode
 };

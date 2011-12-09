@@ -8,37 +8,37 @@
 class game
 {
 public:
-	//creates a new game instance given a render window
+	// creates a new game instance given a render window
 	game(sf::RenderWindow&);
 	
-	//destroys the instance
+	// destroys the instance
 	~game(void);
 
-	//runs the game loop
+	// runs the game loop
 	int loop( );
 
 private:
 	/* internal functions */
 
-	//draws the game instance
+	// draws the game instance
 	void render( );
 
-	//updates the game state, given the elapsed frame time
+	// updates the game state, given the elapsed frame time
 	void update( float );
 
-	//processes a single event, returns false if there were none to handle
+	// processes a single event, returns false if there were none to handle
 	bool process( );
 
 
 	/* private data */
 
-	//game window
+	// game window
 	sf::RenderWindow& _window;
 
-	//the current game state
+	// the current game state
 	GameState _state;
 
-	//a cell
+	// a cell
 	cell _world;
 };
 

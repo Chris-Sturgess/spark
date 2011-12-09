@@ -12,38 +12,38 @@ game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD)
 
 game::~game(void)
 {
-	//todo what if somehow this hits while the game loop is in progress? (kinda rare but possible?)
+	// todo what if somehow this hits while the game loop is in progress? (kinda rare but possible?)
 }
 
-void game::update( float elapsed ) {} //todo handle update
+void game::update( float elapsed ) {} // todo handle update
 void game::render( )
 {
-	//clear the display surface
+	// clear the display surface
 	_window.Clear();
 
-	//todo render stuff
+	// todo render stuff
 	_world.render(_window);
 
-	//flip the buffers
+	// flip the buffers
 	_window.Display();
 }
 
 int game::loop()
 {
-	//start the clock
+	// start the clock
 	sf::Clock clock;
 
-	//run while the game is still running
+	// run while the game is still running
 	while( _window.IsOpened() )
 	{
-		//update the game state and reset the timer
+		// update the game state and reset the timer
 		update( clock.GetElapsedTime() );
 		clock.Reset();
 
-		//render the game
+		// render the game
 		render( );
 
-		//process all events in cue
+		// process all events in cue
 		while( process() ) ;
 	}
 
@@ -54,14 +54,14 @@ bool game::process()
 {
 	using sf::Event;
 
-	//Get the next event, and return if there are none
+	// get the next event, and return if there are none
 	Event e;
 	if( !_window.GetEvent(e) ) return false;
 
-	//handle the event
+	// handle the event
 	switch( e.Type ) {
 
-	case Event::Closed:	//window close button is clicked
+	case Event::Closed:	// window close button is clicked
 		clog << "Window closing" << endl;
 		_window.Close();
 		break;
