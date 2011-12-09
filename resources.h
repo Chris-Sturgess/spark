@@ -1,5 +1,6 @@
 // resources.h
 // manages all in-game resources loaded from the hard disk
+#include "resourceexceptions.h"
 
 #pragma once
 
@@ -13,25 +14,34 @@ namespace resources
 	public:
 		// creates a new resource from the raw type
 		resource( T* r ) : _resource(r), _counter(new int) { *_counter = 1; }
+		
+		// creates an uninitialized resource
+		resource() : _resource(nullptr), _counter(nullptr) {}
 
 		// destruction
 		~resource( ) {
 			destroy();
 		}
 
+		// checks if this resource is null
+		bool null() const { return _resource == nullptr; }
+
 		// gets the number of instances
-		int instances() const { return *_counter; }
+		int instances() const { 
+			throwIfNull();
+			return *_counter; 
+		}
 
 		// gets the internal object
-		T* get() const { return _resource; }
-		T& operator*() { return *_resource; }
-		T* operator->() { return _resource; }
+		T* get() const { throwIfNull(); return _resource; }
+		T& operator*() { throwIfNull(); return *_resource; }
+		T* operator->() { throwIfNull(); return _resource; }
 
 		// copying
-		resource( const resource<T>& rhs ) : _resource(rhs._resource), _counter(rhs._counter) { (*_counter)++; }
+		resource( const resource<T>& rhs ) : _resource(rhs._resource), _counter(rhs._counter) { if( !null() ) (*_counter)++; }
 		resource<T>& operator=( const resource<T>& rhs ) { 
 			// check for self assignment
-			if( this == &rhs ) return rhs;
+			if( this == &rhs ) return *this;
 
 			// destroy us first
 			destroy();
@@ -41,14 +51,23 @@ namespace resources
 			_resource = rhs._resource;
 
 			// increment
-			(*_counter)++;
+			if( !null() )
+				(*_counter)++;
 
 			return *this;
 		}
 
 	private:
+		// throws a null resource exception if the resource is null
+		void throwIfNull() const
+		{
+			if( null() ) throw nullresource();
+		}
+
 		// destroys this reference
 		void destroy( ) {
+			if( null() ) return;
+
 			// decrease counter
 			(*_counter)--;
 

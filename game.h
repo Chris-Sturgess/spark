@@ -4,13 +4,14 @@
 #include "gamestate.h"
 
 #pragma once
+#include "cell.h"
 class game
 {
 public:
 	//creates a new game instance given a render window
 	game(sf::RenderWindow&);
 	
-	//deconstructs the instance
+	//destroys the instance
 	~game(void);
 
 	//runs the game loop
@@ -19,7 +20,7 @@ public:
 private:
 	/* internal functions */
 
-	//renders the game instance
+	//draws the game instance
 	void render( );
 
 	//updates the game state, given the elapsed frame time
@@ -36,5 +37,8 @@ private:
 
 	//the current game state
 	GameState _state;
+
+	//a cell
+	cell _world;
 };
 

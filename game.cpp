@@ -3,9 +3,11 @@
 #include "pch.h"
 #include "game.h"
 
+using namespace ents;
 
 game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD)
 {
+	_world.add("test", shipEntity(new ship()));
 }
 
 game::~game(void)
@@ -20,6 +22,7 @@ void game::render( )
 	_window.Clear();
 
 	//todo render stuff
+	_world.render(_window);
 
 	//flip the buffers
 	_window.Display();
