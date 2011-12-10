@@ -2,12 +2,13 @@
 // is responsible for rendering and updating the game
 #include "pch.h"
 #include "game.h"
+#include "player.h"
 
 using namespace ents;
 
 game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD)
 {
-	_world.add("test", shipEntity(new ship()));
+	_world.add("test", playerEntity(new player()));
 }
 
 game::~game(void)
@@ -15,7 +16,10 @@ game::~game(void)
 	// todo what if somehow this hits while the game loop is in progress? (kinda rare but possible?)
 }
 
-void game::update( float elapsed ) {} // todo handle update
+void game::update( float elapsed ) 
+{
+	_world.update(elapsed, _window.GetInput());
+}
 void game::render( )
 {
 	// clear the display surface

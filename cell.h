@@ -15,7 +15,7 @@ public:
 	void render(sf::RenderTarget&) const;
 
 	// updates the cell
-	void update();
+	void update(float elapsed, const sf::Input&);
 
 	// adds a new ship to the cell
 	void add(string name, ents::shipEntity);
