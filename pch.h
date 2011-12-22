@@ -13,6 +13,10 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <functional>
 
 // makes things a lot nicer
 using namespace std;
+
+// common typedefs
+#include "typedefs.h"

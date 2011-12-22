@@ -90,6 +90,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="resources.cpp" />
+    <ClCompile Include="triggerable.cpp" />
     <ClCompile Include="win32.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -105,6 +106,11 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="ship.h" />
     <ClInclude Include="resources.h" />
+    <ClInclude Include="trigger.h" />
+    <ClInclude Include="triggerable.h" />
+    <ClInclude Include="triggerablemanager.h" />
+    <ClInclude Include="triggerexceptions.h" />
+    <ClInclude Include="typedefs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
