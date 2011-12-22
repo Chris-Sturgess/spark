@@ -9,6 +9,9 @@ using namespace ents;
 game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD)
 {
 	_world.add("test", pplayer(new player()));
+	_ms = new msgs::messagesystem();
+	msgs::dialoguebox* db = _ms->createDialogueBox();
+	_ms->loadScript("test.in");
 }
 
 game::~game(void)
@@ -19,6 +22,7 @@ game::~game(void)
 void game::update( float elapsed ) 
 {
 	_world.update(elapsed, _window.GetInput());
+	_ms->update(elapsed, _window.GetInput());
 }
 void game::render( )
 {
@@ -27,6 +31,7 @@ void game::render( )
 
 	// todo render stuff
 	_world.render(_window);
+	_ms->render(_window);
 
 	// flip the buffers
 	_window.Display();

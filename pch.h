@@ -14,6 +14,7 @@
 #include <string>
 #include <map>
 #include <functional>
+#include <fstream>
 #include <memory>
 
 // makes things a lot nicer
