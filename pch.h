@@ -13,6 +13,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <fstream>
 
 // makes things a lot nicer
 using namespace std;

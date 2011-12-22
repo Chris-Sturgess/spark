@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Brook Jensen\Documents\SFML-1.6\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Brook Jensen\Documents\SFML-1.6\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-1.6\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SFML-1.6\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -81,8 +81,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cell.cpp" />
+    <ClCompile Include="dialoguebox.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="messagesystem.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -97,9 +99,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cell.h" />
+    <ClInclude Include="dialoguebox.h" />
     <ClInclude Include="fileexceptions.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamestate.h" />
+    <ClInclude Include="messagesystem.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="resourceexceptions.h" />
     <ClInclude Include="pch.h" />

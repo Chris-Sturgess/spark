@@ -5,6 +5,7 @@
 
 #pragma once
 #include "cell.h"
+#include "messagesystem.h"
 class game
 {
 public:
@@ -40,5 +41,7 @@ private:
 
 	// a cell
 	cell _world;
+
+	msgs::messagesystem* _ms;
 };
 
