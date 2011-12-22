@@ -39,5 +39,5 @@ namespace ents
 		image _image;
 	};
 
-	typedef shared_ptr<ship> shipEntity;
+	typedef shared_ptr<ship> pship;
 }

@@ -8,7 +8,7 @@ using namespace ents;
 
 game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD)
 {
-	_world.add("test", playerEntity(new player()));
+	_world.add("test", pplayer(new player()));
 }
 
 game::~game(void)

@@ -14,6 +14,7 @@
 #include <string>
 #include <map>
 #include <functional>
+#include <memory>
 
 // makes things a lot nicer
 using namespace std;

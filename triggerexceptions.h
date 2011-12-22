@@ -1,12 +1,12 @@
 // triggerexceptions.h
 // defines exceptions used in the trigger system of the game engine
 
-// thrown when attempting to register an input or output which already exists
-class triggeralreadyregistered : public exception
+// base exception
+class triggerexception : public exception
 {
 public:
-	// constructs a new exception given the name of the trigger to be registered
-	triggeralreadyregistered( const string& triggerName ) : exception("Attempting to register trigger that already exists"), _triggerName(triggerName) {}
+	// constructs a new exception given the name of the trigger
+	triggerexception( const string& triggerName, const char* message ) : exception(message), _triggerName(triggerName) {}
 
 	// gets the name of the trigger which caused the problem
 	string triggerName() const { return _triggerName; }
@@ -15,16 +15,16 @@ private:
 	string _triggerName;
 };
 
-// thrown when attempting to access a trigger (input or output) that does not exist
-class triggerdoesnotexist : public exception
+// thrown when attempting to register an input or output which already exists
+class triggeralreadyregistered : public triggerexception
 {
 public:
-	// constructs a new exception given the name of the trigger to be registered
-	triggerdoesnotexist( const string& triggerName ) : exception("Attempting to use trigger which does not exist"), _triggerName(triggerName) {}
+	triggeralreadyregistered( const string& triggerName ) : triggerexception(triggerName, "Trigger has already been registered") {}
+};
 
-	// gets the name of the trigger which caused the problem
-	string triggerName() const { return _triggerName; }
-private:
-	// the trigger which caused the problem
-	string _triggerName;
+// thrown when attempting to access a trigger (input or output) that does not exist
+class triggerdoesnotexist : public triggerexception
+{
+public:
+	triggerdoesnotexist( const string& triggerName ) : triggerexception(triggerName, "Trigger does not exist") {}
 };

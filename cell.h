@@ -18,9 +18,9 @@ public:
 	void update(float elapsed, const sf::Input&);
 
 	// adds a new ship to the cell
-	void add(string name, ents::shipEntity);
+	void add(string name, ents::pship);
 
 private:
 	// list of all ships within the cell
-	map< string, ents::shipEntity > _ships;
+	map< string, ents::pship > _ships;
 };

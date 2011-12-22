@@ -1,6 +1,9 @@
 // triggerable.h
 // An interface for all classes which can be triggered via
 // the trigger system. They will have "inputs" and "outputs"
+#pragma once
+
+class triggerablemanager;
 
 class triggerable
 {
@@ -9,6 +12,9 @@ public:
 	// string: the name of the input being called
 	// string[]: parameters
 	typedef function< void( const string&, const stringlist& ) > inputfunction;
+
+	// registers and creates the triggerable
+	triggerable( shared_ptr<triggerablemanager> );
 
 	// registers a new input for the current class
 	void registerInput( const string& name, const inputfunction& );
@@ -26,15 +32,21 @@ public:
 	void registerOutput( const string& name );
 
 	// links an output with another classes input
-	void linkOutput( const string& outputName, shared_ptr<triggerable> destination, const string& inputName, const stringlist& params = stringlist() );
+	void linkOutput( const string& outputName, const string& entName, const string& inputName, const stringlist& params = stringlist() );
+
+	// calls an output
+	void callOutput( const string& name ) const;
 private:
 	// inputs
 	map< string, inputfunction > _inputs;
+	
+	// manager parent
+	shared_ptr<triggerablemanager> _parent;
 
 	// represents a link to an entities input
 	struct linkage
 	{
-		shared_ptr<triggerable> destination;
+		string destination;
 		string inputName;
 		stringlist parameters;
 	};
@@ -42,3 +54,5 @@ private:
 	// outputs
 	map< string, auto_ptr<linkage> > _outputs;
 };
+
+typedef shared_ptr<triggerable> ptriggerable;

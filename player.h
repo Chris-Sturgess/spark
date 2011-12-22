@@ -12,5 +12,5 @@ namespace ents
 		virtual void update( float elapsed, const sf::Input& );
 	};
 
-	typedef shared_ptr<player> playerEntity;
+	typedef shared_ptr<player> pplayer;
 }

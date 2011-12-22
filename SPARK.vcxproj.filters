@@ -45,6 +45,9 @@
     <ClCompile Include="triggerable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="triggerablemanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="triggerablemanager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="entityexceptions.h">
+      <Filter>exceptions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ void cell::render(sf::RenderTarget& target) const
 	}
 }
 
-void cell::add(string name, ents::shipEntity ent)
+void cell::add(string name, ents::pship ent)
 {
 	_ships[name] = ent;
 }
