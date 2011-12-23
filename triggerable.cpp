@@ -6,7 +6,7 @@
 #include "triggerexceptions.h"
 #include "triggerablemanager.h"
 
-void triggerable::registerInput( const string& name, const inputfunction& func )
+void trigger::triggerable::registerInput( const string& name, const inputfunction& func )
 {
 	// ensure it is not already in the list of inputs
 	if( _inputs.count( name ) > 0 ){
@@ -17,7 +17,7 @@ void triggerable::registerInput( const string& name, const inputfunction& func )
 	_inputs.insert( make_pair(name, func) );
 }
 
-void triggerable::getRegisteredInputs( stringlist& out ) const
+void trigger::triggerable::getRegisteredInputs( stringlist& out ) const
 {
 	out.clear();
 
@@ -30,7 +30,7 @@ void triggerable::getRegisteredInputs( stringlist& out ) const
 	}
 }
 
-void triggerable::triggerInput( const string& name, const stringlist& args ) const
+void trigger::triggerable::triggerInput( const string& name, const stringlist& args ) const
 {
 	// gets an iterator to the input
 	auto input = _inputs.find(name);
@@ -42,13 +42,13 @@ void triggerable::triggerInput( const string& name, const stringlist& args ) con
 	input->second( name, args );
 }
 
-void triggerable::registerOutput( const string& name )
+void trigger::triggerable::registerOutput( const string& name )
 {
 	// add the output to the mapping
 	_outputs.insert( make_pair(name, vector<linkage>()) );
 }
 
-void triggerable::linkOutput( const string& outputName, const string& entName, const string& inputName, const stringlist& params /*= stringlist() */ )
+void trigger::triggerable::linkOutput( const string& outputName, const string& entName, const string& inputName, const stringlist& params /*= stringlist() */ )
 {
 	// check to ensure this output actually exists
 	auto output = _outputs.find( outputName );
@@ -64,9 +64,9 @@ void triggerable::linkOutput( const string& outputName, const string& entName, c
 	link->parameters = params;
 }
 
-triggerable::triggerable( ptriggerablemanager manager ) : _parent(manager) {}
+trigger::triggerable::triggerable( ptriggerablemanager manager ) : _parent(manager) {}
 
-void triggerable::callOutput( const string& outputName ) const
+void trigger::triggerable::callOutput( const string& outputName ) const
 {
 	// check to ensure this output actually exists
 	auto output = _outputs.find( outputName );
