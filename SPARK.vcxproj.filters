@@ -54,6 +54,9 @@
     <ClCompile Include="triggerablemanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="quest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -106,6 +109,12 @@
     </ClInclude>
     <ClInclude Include="dialoguebox.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="quest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="questexceptions.h">
+      <Filter>exceptions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

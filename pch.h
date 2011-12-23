@@ -17,6 +17,7 @@
 #include <functional>
 #include <fstream>
 #include <memory>
+#include <hash_map>
 
 // makes things a lot nicer
 using namespace std;

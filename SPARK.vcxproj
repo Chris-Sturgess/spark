@@ -90,6 +90,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="quest.cpp" />
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="triggerable.cpp" />
@@ -108,6 +109,8 @@
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="messagesystem.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="quest.h" />
+    <ClInclude Include="questexceptions.h" />
     <ClInclude Include="resourceexceptions.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ship.h" />
