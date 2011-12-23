@@ -52,7 +52,7 @@ private:
 	};
 
 	// outputs
-	map< string, auto_ptr<linkage> > _outputs;
+	map< string, vector<linkage> > _outputs;
 };
 
 typedef shared_ptr<triggerable> ptriggerable;

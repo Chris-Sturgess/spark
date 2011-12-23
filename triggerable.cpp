@@ -44,26 +44,24 @@ void triggerable::triggerInput( const string& name, const stringlist& args ) con
 
 void triggerable::registerOutput( const string& name )
 {
-	// create a blank linkage structure
-	auto ptr = new linkage();
-	ptr->destination = ""; ptr->inputName = string(); ptr->parameters = stringlist();
-
 	// add the output to the mapping
-	_outputs.insert( make_pair(name, auto_ptr<linkage>(ptr)) );
+	_outputs.insert( make_pair(name, vector<linkage>()) );
 }
 
 void triggerable::linkOutput( const string& outputName, const string& entName, const string& inputName, const stringlist& params /*= stringlist() */ )
 {
-	// create a new linkage object
-	auto ptr = new linkage();
-	ptr->destination = entName; ptr->inputName = inputName; ptr->parameters = params;
-
 	// check to ensure this output actually exists
 	auto output = _outputs.find( outputName );
 	if( output == _outputs.end() ) throw triggerdoesnotexist(outputName);
 
-	// add the output
-	output->second = auto_ptr<linkage>(ptr);
+	// create a new linkage
+	output->second.push_back(linkage());
+
+	//Add data to that linkage
+	auto link = output->second.rend();
+	link->destination = entName;
+	link->inputName = inputName;
+	link->parameters = params;
 }
 
 triggerable::triggerable( ptriggerablemanager manager ) : _parent(manager) {}
@@ -74,9 +72,11 @@ void triggerable::callOutput( const string& outputName ) const
 	auto output = _outputs.find( outputName );
 	if( output == _outputs.end() ) throw triggerdoesnotexist(outputName);
 
-	// check to ensure it has a link, if not fail silently
-	if( output->second->destination == "" ) return;
-
-	// trigger the linkage
-	_parent->runInput(output->second->destination, output->second->inputName, output->second->parameters);
+	// call every link
+	auto begin = output->second.begin(),
+		end = output->second.end();
+	for( auto i = begin; i != end; i++ )
+	{
+		_parent->runInput(i->destination, i->inputName, i->parameters);
+	}
 }
