@@ -9,6 +9,8 @@ namespace ents
 {
 	class player : public ship
 	{
+	public:
+		player( b2World& );
 		virtual void update( float elapsed, const sf::Input& );
 	};
 

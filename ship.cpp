@@ -6,21 +6,22 @@
 
 namespace ents
 {
-	ship::ship() : _angularVelocity(0.0f)
+	ship::ship(b2World& world)
 	{
 		_image = resources::loadImage("ship.png");
 		this->SetImage( *_image );
 		this->SetCenter( _image->GetWidth()/2.0f, _image->GetHeight()/2.0f);
+		createPhysics(world);
+		_physicsBody->SetLinearDamping(0.001f);
+		_physicsBody->SetAngularDamping(0.001f);
 	}
 
 	void ship::update( float elapsed, const sf::Input& input )
 	{
-		Move(_linearVelocity*elapsed);
-		Rotate(_angularVelocity*elapsed);
-
-		// dampen
-		_linearVelocity *= 0.99f;
-		_angularVelocity *= 0.99f;
+		b2Vec2 position = _physicsBody->GetPosition();
+		SetX(position.x);
+		SetY(position.y);
+		SetRotation(_physicsBody->GetAngle());
 	}
 
 	void ship::Render( sf::RenderTarget& target )
@@ -28,22 +29,53 @@ namespace ents
 		sf::Sprite::Render(target);
 	}
 
-	sf::Vector2f ship::forward() const
+	b2Vec2 ship::forward() const
 	{
 		float angle = GetRotation() / 180.0f * 3.14159265f;
-		return sf::Vector2f(
+		return b2Vec2(
 			cosf(angle),
 			-sinf(angle));
 	}
 
 	void ship::thrust( float amount )
 	{
-		_linearVelocity += forward()*amount;
+		b2Vec2 forw = forward();
+		forw *= amount;
+		_physicsBody->ApplyForceToCenter(forw);
 	}
 
 	void ship::angularThrust( float amount )
 	{
-		_angularVelocity += amount;
+		_physicsBody->ApplyTorque(amount);
+	}
+
+	void ship::createPhysics( b2World& world )
+	{
+		// create the definition
+		b2BodyDef def;
+		def.type = b2_dynamicBody;
+		def.position.Set(0, 0);
+		_physicsBody = world.CreateBody(&def);
+
+		// create a shape for the entity
+		b2PolygonShape shape;
+		shape.SetAsBox(50, 50);
+
+		b2FixtureDef fixture;
+		fixture.shape = &shape;
+		fixture.friction = 0.0f;
+		fixture.density = 1.0f;
+		_physicsBody->CreateFixture(&fixture);
+	}
+
+	void ship::SetPosition( float X, float Y )
+	{
+		_physicsBody->SetTransform( b2Vec2(X,Y), GetRotation());
+	}
+
+	void ship::SetPosition( const sf::Vector2f& v )
+	{
+		_physicsBody->SetTransform( b2Vec2(v.x, v.y), GetRotation());
 	}
 
 }

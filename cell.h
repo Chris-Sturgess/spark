@@ -20,7 +20,13 @@ public:
 	// adds a new ship to the cell
 	void add(string name, ents::pship);
 
+	// returns the cell's physically simulated world
+	b2World& world();
+
 private:
 	// list of all ships within the cell
 	map< string, ents::pship > _ships;
+
+	// physics world
+	b2World _world;
 };

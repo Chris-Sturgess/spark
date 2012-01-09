@@ -8,7 +8,10 @@ using namespace ents;
 
 game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD)
 {
-	_world.add("test", pplayer(new player()));
+	_world.add("test", pplayer(new player(_world.world())));
+	auto ent = pship(new ship(_world.world()));
+	ent->SetPosition(300, 300);
+	_world.add("test2", ent);
 	_ms = new msgs::messagesystem();
 	msgs::dialoguebox* db = _ms->createDialogueBox();
 	_ms->loadScript("test.in");
@@ -46,8 +49,11 @@ int game::loop()
 	while( _window.IsOpened() )
 	{
 		// update the game state and reset the timer
-		update( clock.GetElapsedTime() );
-		clock.Reset();
+		if( clock.GetElapsedTime() > 1.0f/30.0f	)
+		{
+			update( 1.0f/30.0f );
+			clock.Reset();
+		}
 
 		// render the game
 		render( );
