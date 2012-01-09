@@ -5,6 +5,7 @@ namespace msgs
 {
 	messagesystem::messagesystem()
 	{
+		_curDialogue = NULL;
 		_toAdvance = false;
 	}
 	messagesystem::~messagesystem()
@@ -26,12 +27,58 @@ namespace msgs
 	void messagesystem::parseNextLine()
 	{
 		if (!_curScript) throw new exception("no script loaded");
-		string s;
-		if (!_curScript->fail())
+		bool repeat = false;
+		do
 		{
-			getline(*_curScript, s);
-			_curDialogue->setText(s);
-		}
+			repeat = false;
+			string s;
+			if (!_curScript->fail())
+			{
+				getline(*_curScript, s);
+
+				stringstream ss;
+				ss << s;
+				string cmd;
+				ss >> cmd;
+
+				if (cmd == "print")
+				{
+					char cur;
+					do
+					{
+						cur = ss.get();
+					} while (cur != '"');
+					string toPrint = "";
+					while (true)
+					{
+						cur = ss.get();
+						if (cur == '"')
+							break;
+						toPrint += cur;
+					}
+					_curDialogue->appendText(toPrint);
+				}
+				if (cmd == "clr")
+				{
+					_curDialogue->clearText();
+				}
+				if (cmd == "clra")
+				{
+					_curDialogue->clearText();
+					repeat = true;
+				}
+				if (cmd == "opendiag")
+				{
+					_curDialogue = createDialogueBox();
+					repeat = true;
+				}
+				if (cmd == "closediag")
+				{
+					delete _curDialogue;
+					_curDialogue = NULL;
+				}
+			}
+		} while (repeat == true);
 	}
 	void messagesystem::render(sf::RenderTarget& target) const
 	{
@@ -40,13 +87,12 @@ namespace msgs
 	}
 	void messagesystem::update(float elapsed, const sf::Input& input)
 	{
-		if (_curDialogue)
-			if (input.IsKeyDown(sf::Key::Return))
-				_toAdvance = true;
-			else if (_toAdvance)
-			{
-				_toAdvance = false;
-				parseNextLine();
-			}
+		if (input.IsKeyDown(sf::Key::Return))
+			_toAdvance = true;
+		else if (_toAdvance)
+		{
+			_toAdvance = false;
+			parseNextLine();
+		}
 	}
 }

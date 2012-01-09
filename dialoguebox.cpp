@@ -21,8 +21,15 @@ namespace msgs
 	{
 		_curText = s;
 	}
+	void dialoguebox::appendText(const string& s)
+	{
+		_curText += s;
+	}
 	// void showImage(sf::Image i);
-	// void clearText();
+	void dialoguebox::clearText()
+	{
+		_curText = "";
+	}
 	// void clearImage();
 	void dialoguebox::render(sf::RenderTarget& target) const
 	{

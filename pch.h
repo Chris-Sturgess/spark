@@ -16,6 +16,7 @@
 #include <functional>
 #include <fstream>
 #include <memory>
+#include <sstream>
 
 // makes things a lot nicer
 using namespace std;

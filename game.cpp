@@ -10,7 +10,6 @@ game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD)
 {
 	_world.add("test", pplayer(new player()));
 	_ms = new msgs::messagesystem();
-	msgs::dialoguebox* db = _ms->createDialogueBox();
 	_ms->loadScript("test.in");
 }
 

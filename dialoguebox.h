@@ -12,6 +12,7 @@ namespace msgs
 		dialoguebox();
 		~dialoguebox();
 		void setText(const string& s);
+		void appendText(const string& s);
 		void showImage(sf::Image i);
 		void clearText();
 		void clearImage();

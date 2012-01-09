@@ -1,12 +1,12 @@
-hi
-my
-name
-is
-andrew
-what
-is
-your
-name
-END OF FILE
-DO NOT ATTEMPT TO GO ANY FURTHER
-damnit :(
+opendiag
+print "hi "
+print "my "
+print "name "
+print "is "
+print "andrew"
+clra
+print "all together now!"
+clra
+print "hi my name is andrew"
+clra
+closediag
