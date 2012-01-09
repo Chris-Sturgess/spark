@@ -11,12 +11,14 @@
 
 // iostream headers
 #include <iostream>
+#include <vector>
 #include <string>
 #include <map>
 #include <functional>
 #include <fstream>
 #include <memory>
 #include <sstream>
+#include <hash_map>
 
 // makes things a lot nicer
 using namespace std;

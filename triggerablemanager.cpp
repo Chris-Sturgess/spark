@@ -6,7 +6,7 @@
 #include "triggerablemanager.h"
 #include "entityexceptions.h"
 
-ptriggerable triggerablemanager::createTriggerable( const string& name )
+trigger::ptriggerable trigger::triggerablemanager::createTriggerable( const string& name )
 {
 	if( _triggerables.count(name) > 0 ) throw entityalreadyexists("triggerable", name);
 	ptriggerable result = ptriggerable(new triggerable(shared_from_this()));
@@ -14,14 +14,14 @@ ptriggerable triggerablemanager::createTriggerable( const string& name )
 	return result;
 }
 
-ptriggerable triggerablemanager::findTriggerable( const string& name )
+trigger::ptriggerable trigger::triggerablemanager::findTriggerable( const string& name )
 {
 	auto ptr = _triggerables.find(name);
 	if( ptr == _triggerables.end() ) throw entitynotfound("triggerable", name);
 	return ptr->second;
 }
 
-void triggerablemanager::runInput( const string& destinationEntity, const string& inputName, const stringlist& params )
+void trigger::triggerablemanager::runInput( const string& destinationEntity, const string& inputName, const stringlist& params )
 {
 	findTriggerable(destinationEntity)->triggerInput(inputName, params);
 }
