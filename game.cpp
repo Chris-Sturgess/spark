@@ -3,14 +3,15 @@
 #include "pch.h"
 #include "game.h"
 #include "player.h"
+#include "celldrawer.h"
 
 using namespace ents;
 
 game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD)
 {
-	_world.add("test", pplayer(new player(_world.world())));
-	auto ent = pship(new ship(_world.world()));
-	ent->SetPosition(300, 300);
+	_world.add("test", pplayer(new player()));
+	auto ent = pship(new ship());
+	ent->position(b2Vec2(30, 30));
 	_world.add("test2", ent);
 	_ms = new msgs::messagesystem();
 	msgs::dialoguebox* db = _ms->createDialogueBox();
@@ -33,7 +34,8 @@ void game::render( )
 	_window.Clear();
 
 	// todo render stuff
-	_world.render(_window);
+	visuals::celldrawer drawer;
+	drawer.renderCell(_world, _window);
 	_ms->render(_window);
 
 	// flip the buffers

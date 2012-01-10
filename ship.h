@@ -6,13 +6,27 @@
 
 namespace ents
 {
-	class ship : public sf::Sprite
+	class ship
 	{
 	public:
-		ship(b2World&);
+		ship();
+
+		// loads the ship into a physics world
+		void loadIntoWorld( b2World& );
+
+		// unloads the physics from a world
+		void unloadPhysics( );
 
 		// updates the ship each frame
 		virtual void update(float elapsed, const sf::Input&);
+
+		// gets or sets the position
+		b2Vec2 position() const;
+		void position(const b2Vec2&);
+
+		// gets or sets the angle of rotation
+		float32 rotation() const;
+		void rotation(float32);
 
 		// calculates the forward vector
 		b2Vec2 forward() const;
@@ -23,22 +37,23 @@ namespace ents
 		// adds angular thrust
 		void angularThrust( float amount );
 
-		virtual void SetPosition(float X, float Y);
-		virtual void SetPosition(const sf::Vector2f& v);
-
-	protected:
-		// draws our object
-		void Render(sf::RenderTarget&);
-
+		// gets the image associated with the ship
+		string imageName() const;
 	private:
-		// creates the physics portion of the ship
-		void createPhysics(b2World&);
+		// physics data which is held persistently
+		struct 
+		{
+			b2Vec2 _position;
+			float32 _angle;
+			b2Vec2 _linearVel;
+			float32 _angularVel;
+		} _data;
+		
+		// image name
+		string _imageName;
 
 		// unique name within a cell
 		string _cellName;
-
-		// our image
-		image _image;
 
 		// rigid body
 		b2Body* _physicsBody;

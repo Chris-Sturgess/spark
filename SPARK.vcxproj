@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cell.cpp" />
+    <ClCompile Include="celldrawer.cpp" />
     <ClCompile Include="dialoguebox.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -102,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cell.h" />
+    <ClInclude Include="celldrawer.h" />
     <ClInclude Include="dialoguebox.h" />
     <ClInclude Include="entityexceptions.h" />
     <ClInclude Include="fileexceptions.h" />

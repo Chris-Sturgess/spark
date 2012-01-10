@@ -23,6 +23,9 @@ public:
 	// returns the cell's physically simulated world
 	b2World& world();
 
+	// calls a for each on the ships
+	void foreachShip( function<void(ents::pship)> ) const;
+
 private:
 	// list of all ships within the cell
 	map< string, ents::pship > _ships;
