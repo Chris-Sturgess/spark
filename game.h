@@ -6,6 +6,7 @@
 #pragma once
 #include "cell.h"
 #include "messagesystem.h"
+#include "quest.h"
 class game
 {
 public:
@@ -43,5 +44,6 @@ private:
 	cell _world;
 
 	msgs::messagesystem* _ms;
+	shared_ptr<quests::quest> _qs;
 };
 

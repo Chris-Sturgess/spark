@@ -4,13 +4,14 @@
 #pragma once
 #include <fstream>
 #include "dialoguebox.h"
+#include "quest.h"
 
 namespace msgs
 {
 	class messagesystem
 	{
 	public:
-		messagesystem();
+		messagesystem(shared_ptr<quests::quest> qs);
 		~messagesystem();
 		dialoguebox* createDialogueBox();
 		void loadScript(const string& s);
@@ -19,7 +20,11 @@ namespace msgs
 		void update(float elapsed, const sf::Input& input);
 	private:
 		dialoguebox* _curDialogue;
-		ifstream* _curScript;
+		vector<string> _curScript;
+		int _curLine;
+		hash_map<string, int> _labels;
 		bool _toAdvance;
+		sf::Music music;
+		shared_ptr<quests::quest> _qs;
 	};
 }

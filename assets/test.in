@@ -1,12 +1,14 @@
 opendiag
-print "hi "
-print "my "
-print "name "
-print "is "
-print "andrew"
-clra
-print "all together now!"
-clra
+set count 0
+:repeat
 print "hi my name is andrew"
 clra
+if count > 2 :done
+add count 1
+print "keep going!"
+clra
+goto :repeat
+:done
+playmusic victory.ogg
+print "that's all folks!"
 closediag
