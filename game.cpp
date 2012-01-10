@@ -13,7 +13,7 @@ game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(
 	auto ent = pship(new ship());
 	ent->position(b2Vec2(30, 30));
 	_world.add("test2", ent);
-	_ms = new msgs::messagesystem(_qs);
+	_ms = new msgs::messagesystem(_qs, _triggerManager);
 	_ms->loadScript("test.in");
 }
 

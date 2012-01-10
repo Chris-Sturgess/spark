@@ -3,10 +3,11 @@
 
 namespace msgs
 {
-	messagesystem::messagesystem(shared_ptr<quests::quest> qs)
+	messagesystem::messagesystem(shared_ptr<quests::quest> qs, shared_ptr<trigger::triggerablemanager> tm)
 	{
 		_curDialogue = NULL;
 		_qs = qs;
+		_tm = tm;
 		_toAdvance = false;
 	}
 	messagesystem::~messagesystem()
@@ -117,6 +118,11 @@ namespace msgs
 					if (!music.OpenFromFile(s))
 						throw exception("Oh shit...");
 					music.Play();
+					repeat = true;
+				}
+				else if (cmd == "stopmusic")
+				{
+					music.Stop();
 					repeat = true;
 				}
 				else if (cmd == "if")

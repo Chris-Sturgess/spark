@@ -5,13 +5,14 @@
 #include <fstream>
 #include "dialoguebox.h"
 #include "quest.h"
+#include "triggerablemanager.h"
 
 namespace msgs
 {
 	class messagesystem
 	{
 	public:
-		messagesystem(shared_ptr<quests::quest> qs);
+		messagesystem(shared_ptr<quests::quest> qs, shared_ptr<trigger::triggerablemanager> tm);
 		~messagesystem();
 		dialoguebox* createDialogueBox();
 		void loadScript(const string& s);
@@ -21,10 +22,11 @@ namespace msgs
 	private:
 		dialoguebox* _curDialogue;
 		vector<string> _curScript;
-		int _curLine;
+		unsigned int _curLine;
 		hash_map<string, int> _labels;
 		bool _toAdvance;
 		sf::Music music;
 		shared_ptr<quests::quest> _qs;
+		shared_ptr<trigger::triggerablemanager> _tm;
 	};
 }

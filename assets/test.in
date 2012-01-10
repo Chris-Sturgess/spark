@@ -11,4 +11,6 @@ goto :repeat
 :done
 playmusic victory.ogg
 print "that's all folks!"
+stopmusic victory.ogg
+print "no more music :("
 closediag
