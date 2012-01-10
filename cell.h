@@ -5,6 +5,7 @@
 
 // include fundamental entity types
 #include "ship.h"
+#include "trigger.h"
 
 class cell
 {
@@ -19,6 +20,7 @@ public:
 
 	// adds a new ship to the cell
 	void add(string name, ents::pship);
+	void add(string name, ents::ptrigger);
 
 	// returns the cell's physically simulated world
 	b2World& world();
@@ -29,6 +31,7 @@ public:
 private:
 	// list of all ships within the cell
 	map< string, ents::pship > _ships;
+	map< string, ents::ptrigger > _triggers;
 
 	// physics world
 	b2World _world;

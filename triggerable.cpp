@@ -58,7 +58,7 @@ void trigger::triggerable::linkOutput( const string& outputName, const string& e
 	output->second.push_back(linkage());
 
 	//Add data to that linkage
-	auto link = output->second.rend();
+	auto link = output->second.rbegin();
 	link->destination = entName;
 	link->inputName = inputName;
 	link->parameters = params;

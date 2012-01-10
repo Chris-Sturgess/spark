@@ -3,18 +3,26 @@
 #include "pch.h"
 #include "game.h"
 #include "player.h"
+#include "trigger.h"
 #include "celldrawer.h"
 
 using namespace ents;
+using namespace placeholders;
 
-game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(new quests::quest()), _triggerManager(new trigger::triggerablemanager())
+game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(new quests::quest()), _triggerManager(new ::trigger::triggerablemanager())
 {
 	_world.add("test", pplayer(new player()));
 	auto ent = pship(new ship());
 	ent->position(b2Vec2(30, 30));
 	_world.add("test2", ent);
+	_world.add("testtrigger", ptrigger(new ents::trigger(_triggerManager, "testtrigger", 0, 30, 0, 20, 20)));
+	stringlist params; params.push_back("test.in");
+	_triggerManager->findTriggerable("testtrigger")->linkOutput("hit", "dialog", "run", params);
 	_ms = new msgs::messagesystem(_qs, _triggerManager);
-	_ms->loadScript("test.in");
+	_ms = new msgs::messagesystem(_qs);
+
+	_dialogTriggerable = _triggerManager->createTriggerable("dialog");
+	_dialogTriggerable->registerInput("run", bind( &game::dialogRunTrigger, this, _1, _2 ) );
 }
 
 game::~game(void)
@@ -84,4 +92,11 @@ bool game::process()
 	}
 
 	return true;
+}
+
+void game::dialogRunTrigger( const string& name, const stringlist& params )
+{
+	_ms->loadScript(params[0]);
+	_ms->parseNextLine();
+}
 }

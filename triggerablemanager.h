@@ -1,6 +1,7 @@
 // triggerablemanager.h
 // handles all triggerables and allows them to communicate
 #pragma once
+#pragma once
 
 #include "triggerable.h"
 

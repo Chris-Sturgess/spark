@@ -4,12 +4,15 @@
 #include "trigger.h"
 
 
-ents::trigger::trigger( float x, float y, float angle, float whe, float hhe ) : _physicsBody(nullptr)
+ents::trigger::trigger( ::trigger::ptriggerablemanager manager, const string& name, float x, float y, float angle, float whe, float hhe ) : _physicsBody(nullptr), _bHasRun(false)
 {
 	_data._position = b2Vec2(x, y);
 	_data._angle = angle;
 	_data._width = whe;
 	_data._height = hhe;
+
+	_trigger = manager->createTriggerable(name);
+	_trigger->registerOutput("hit");
 }
 
 void ents::trigger::loadIntoWorld( b2World& world )
@@ -42,10 +45,16 @@ void ents::trigger::loadIntoWorld( b2World& world )
 
 void ents::trigger::update( float elapsed )
 {
-	auto contact = _physicsBody->GetContactList();
+	/*auto contact = _physicsBody->GetContactList();
 	for(; contact != nullptr; contact = contact->next )
 	{
-		//contact->contact->get
+		contact->contact->GetFixtureB()->GetBody()
+	}*/
+	if( _bHasRun ) return;
+	if( _physicsBody->GetContactList() != nullptr ) 
+	{
+		_trigger->callOutput("hit");
+		_bHasRun = true;
 	}
 }
 

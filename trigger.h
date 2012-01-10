@@ -1,6 +1,7 @@
 // trigger.h
 // represents a trigger which can be triggered by things
 #pragma once
+#include "triggerablemanager.h"
 
 namespace ents
 {
@@ -8,7 +9,7 @@ namespace ents
 	{
 	public:
 		// creates a trigger centered at x,y with the width and height half extents
-		trigger( float x, float y, float angle, float whe, float hhe );
+		trigger( ::trigger::ptriggerablemanager manager, const string& name, float x, float y, float angle, float whe, float hhe );
 
 		// checks for contacts
 		void update( float elapsed );
@@ -29,5 +30,13 @@ namespace ents
 
 		// the body for the trigger
 		b2Body* _physicsBody;
+
+		// the triggerable
+		::trigger::ptriggerable _trigger;
+
+		// has triggered before
+		bool _bHasRun;
 	};
+
+	typedef shared_ptr<trigger> ptrigger;
 }
