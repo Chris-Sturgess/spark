@@ -3,7 +3,7 @@ set count 0
 :repeat
 print "hi my name is andrew"
 clra
-if count > 2 :done
+if count = 3 :done
 add count 1
 print "keep going!"
 clra
@@ -11,6 +11,7 @@ goto :repeat
 :done
 playmusic victory.ogg
 print "that's all folks!"
+clra
 stopmusic victory.ogg
 print "no more music :("
 closediag

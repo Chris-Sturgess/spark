@@ -72,6 +72,7 @@ namespace ents
 
 		// create the body
 		_physicsBody = world.CreateBody(&def);
+		_physicsBody->SetSleepingAllowed(false);
 
 		// create a shape for the entity
 		b2PolygonShape shape;
