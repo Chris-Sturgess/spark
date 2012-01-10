@@ -6,44 +6,125 @@
 
 namespace ents
 {
-	ship::ship() : _angularVelocity(0.0f)
+	ship::ship() : _physicsBody(nullptr), _imageName("ship.png")
 	{
-		_image = resources::loadImage("ship.png");
-		this->SetImage( *_image );
-		this->SetCenter( _image->GetWidth()/2.0f, _image->GetHeight()/2.0f);
+		_data._position = b2Vec2(0,0);
+		_data._linearVel = b2Vec2(0,0);
+		_data._angle = 0;
+		_data._angularVel = 0;
 	}
 
 	void ship::update( float elapsed, const sf::Input& input )
 	{
-		Move(_linearVelocity*elapsed);
-		Rotate(_angularVelocity*elapsed);
-
-		// dampen
-		_linearVelocity *= 0.99f;
-		_angularVelocity *= 0.99f;
+		// copy information from the physics object into the persistent data
+		if( _physicsBody )
+		{
+			_data._position = _physicsBody->GetPosition();
+			_data._angle = _physicsBody->GetAngle();
+			_data._linearVel = _physicsBody->GetLinearVelocity();
+			_data._angularVel = _physicsBody->GetAngularVelocity();
+		}
 	}
 
-	void ship::Render( sf::RenderTarget& target )
+	b2Vec2 ship::forward() const
 	{
-		sf::Sprite::Render(target);
-	}
-
-	sf::Vector2f ship::forward() const
-	{
-		float angle = GetRotation() / 180.0f * 3.14159265f;
-		return sf::Vector2f(
+		float angle = rotation();
+		return b2Vec2(
 			cosf(angle),
 			-sinf(angle));
 	}
 
 	void ship::thrust( float amount )
 	{
-		_linearVelocity += forward()*amount;
+		if( _physicsBody == nullptr ) return;
+		b2Vec2 forw = forward();
+		forw *= amount;
+		_physicsBody->ApplyForceToCenter(forw);
 	}
 
 	void ship::angularThrust( float amount )
 	{
-		_angularVelocity += amount;
+		if( _physicsBody == nullptr ) return;
+		//_physicsBody->ApplyTorque(amount);
+		_physicsBody->ApplyAngularImpulse(amount);
+	}
+
+	void ship::loadIntoWorld( b2World& world )
+	{
+		if( _physicsBody != nullptr )
+		{
+			throw exception("Oh shit...");
+		}
+
+		// create the definition
+		b2BodyDef def;
+		def.type = b2_dynamicBody;
+
+		// restore data from previous load
+		def.position = _data._position;
+		def.angle = _data._angle;
+		def.linearVelocity = _data._linearVel;
+		def.angularVelocity = _data._angularVel;
+
+		// setup damping
+		def.linearDamping = 0.001f;
+		def.angularDamping = 0.001f;
+
+		// create the body
+		_physicsBody = world.CreateBody(&def);
+
+		// create a shape for the entity
+		b2PolygonShape shape;
+		shape.SetAsBox(5, 5);
+
+		b2FixtureDef fixture;
+		fixture.shape = &shape;
+		fixture.friction = 0.0f;
+		fixture.density = 5.0f;
+		_physicsBody->CreateFixture(&fixture);
+	}
+
+	b2Vec2 ship::position() const
+	{
+		return _data._position;
+	}
+
+	void ship::position( const b2Vec2& v )
+	{
+		if( _physicsBody )
+		{
+			_physicsBody->SetTransform(v, rotation());
+		}
+		_data._position = v;
+	}
+
+	float32 ship::rotation() const
+	{
+		return _data._angle;
+	}
+
+	void ship::rotation( float32 angle )
+	{
+		if( _physicsBody )
+		{
+			_physicsBody->SetTransform(position(), angle);
+		}
+		_data._angle = angle;
+	}
+
+	void ship::unloadPhysics()
+	{
+		if( _physicsBody == nullptr )
+		{
+			throw exception("oh shit...");
+		}
+		_physicsBody->GetWorld()->DestroyBody(_physicsBody);
+		_physicsBody = nullptr;
+	}
+
+	std::string ship::imageName() const
+	{
+		return _imageName;
 	}
 
 }

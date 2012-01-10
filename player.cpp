@@ -7,17 +7,20 @@ void ents::player::update( float elapsed, const sf::Input& input )
 {
 	ship::update(elapsed, input);
 
+	const static float newtonsForward = 10.0f;
+	const static float torqueAngle = 1.0f;
+
 	// respond to input
 	if(input.IsKeyDown(sf::Key::W)) {
-		this->thrust(elapsed*10000.0f);
+		this->thrust(newtonsForward);
 	}
 	if (input.IsKeyDown(sf::Key::S)) {
-		this->thrust(-elapsed*10000.0f);
+		this->thrust(-newtonsForward);
 	}
 	if( input.IsKeyDown(sf::Key::A)) {
-		this->angularThrust(elapsed*5000.0f);
+		this->angularThrust(torqueAngle);
 	}
 	if( input.IsKeyDown(sf::Key::D)) {
-		this->angularThrust(-elapsed*5000.0f);
+		this->angularThrust(-torqueAngle);
 	}
 }

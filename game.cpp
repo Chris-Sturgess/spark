@@ -3,6 +3,7 @@
 #include "pch.h"
 #include "game.h"
 #include "player.h"
+#include "celldrawer.h"
 
 using namespace ents;
 
@@ -10,6 +11,11 @@ game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(
 {
 	_world.add("test", pplayer(new player()));
 	_ms = new msgs::messagesystem(_qs);
+	auto ent = pship(new ship());
+	ent->position(b2Vec2(30, 30));
+	_world.add("test2", ent);
+	_ms = new msgs::messagesystem();
+	msgs::dialoguebox* db = _ms->createDialogueBox();
 	_ms->loadScript("test.in");
 }
 
@@ -29,7 +35,8 @@ void game::render( )
 	_window.Clear();
 
 	// todo render stuff
-	_world.render(_window);
+	visuals::celldrawer drawer;
+	drawer.renderCell(_world, _window);
 	_ms->render(_window);
 
 	// flip the buffers
@@ -45,8 +52,11 @@ int game::loop()
 	while( _window.IsOpened() )
 	{
 		// update the game state and reset the timer
-		update( clock.GetElapsedTime() );
-		clock.Reset();
+		if( clock.GetElapsedTime() > 1.0f/30.0f	)
+		{
+			update( 1.0f/30.0f );
+			clock.Reset();
+		}
 
 		// render the game
 		render( );
