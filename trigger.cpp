@@ -4,7 +4,7 @@
 #include "trigger.h"
 
 
-ents::trigger::trigger( ::trigger::ptriggerablemanager manager, const string& name, float x, float y, float angle, float whe, float hhe ) : _physicsBody(nullptr)
+ents::trigger::trigger( ::trigger::ptriggerablemanager manager, const string& name, float x, float y, float angle, float whe, float hhe ) : _physicsBody(nullptr), _bHasRun(false)
 {
 	_data._position = b2Vec2(x, y);
 	_data._angle = angle;
@@ -50,7 +50,12 @@ void ents::trigger::update( float elapsed )
 	{
 		contact->contact->GetFixtureB()->GetBody()
 	}*/
-	if( _physicsBody->GetContactList() != nullptr ) _trigger->callOutput("hit");
+	if( _bHasRun ) return;
+	if( _physicsBody->GetContactList() != nullptr ) 
+	{
+		_trigger->callOutput("hit");
+		_bHasRun = true;
+	}
 }
 
 void ents::trigger::unloadPhysics()

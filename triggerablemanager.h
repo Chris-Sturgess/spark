@@ -1,5 +1,6 @@
 // triggerablemanager.h
 // handles all triggerables and allows them to communicate
+#pragma once
 #include "triggerable.h"
 
 namespace trigger

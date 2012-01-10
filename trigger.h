@@ -33,6 +33,9 @@ namespace ents
 
 		// the triggerable
 		::trigger::ptriggerable _trigger;
+
+		// has triggered before
+		bool _bHasRun;
 	};
 
 	typedef shared_ptr<trigger> ptrigger;
