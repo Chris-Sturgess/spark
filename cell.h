@@ -19,8 +19,8 @@ public:
 	void update(float elapsed, const sf::Input&);
 
 	// adds a new ship to the cell
-	void add(string name, ents::pship);
-	void add(string name, ents::ptrigger);
+	void add(ents::pship);
+	void add(ents::ptrigger);
 
 	// returns the cell's physically simulated world
 	b2World& world();

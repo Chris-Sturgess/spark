@@ -19,6 +19,9 @@ namespace ents
 
 		// unloads the physics from a world
 		void unloadPhysics( );
+
+		// gets the unique name of the trigger
+		string name() const;
 	private:
 		// data persisting before/after physics unloading
 		struct  
@@ -36,6 +39,9 @@ namespace ents
 
 		// has triggered before
 		bool _bHasRun;
+
+		// unique name
+		string _uniqueName;
 	};
 
 	typedef shared_ptr<trigger> ptrigger;

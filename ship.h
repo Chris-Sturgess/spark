@@ -3,13 +3,15 @@
 #pragma once
 
 #include "resources.h"
+#include "triggerable.h"
+#include "triggerablemanager.h"
 
 namespace ents
 {
 	class ship
 	{
 	public:
-		ship();
+		ship(::trigger::ptriggerablemanager manager, const string& name);
 
 		// loads the ship into a physics world
 		void loadIntoWorld( b2World& );
@@ -19,6 +21,9 @@ namespace ents
 
 		// updates the ship each frame
 		virtual void update(float elapsed, const sf::Input&);
+
+		// gets the unique name of the ship
+		string name() const;
 
 		// gets or sets the position
 		b2Vec2 position() const;
@@ -53,10 +58,13 @@ namespace ents
 		string _imageName;
 
 		// unique name within a cell
-		string _cellName;
+		string _uniqueName;
 
 		// rigid body
 		b2Body* _physicsBody;
+
+		// triggerable
+		::trigger::ptriggerable _trigger;
 	};
 
 	typedef shared_ptr<ship> pship;

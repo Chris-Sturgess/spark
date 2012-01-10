@@ -24,3 +24,8 @@ void ents::player::update( float elapsed, const sf::Input& input )
 		this->angularThrust(-torqueAngle);
 	}
 }
+
+ents::player::player( ::trigger::ptriggerablemanager manager, const string& name ) : ship(manager, name)
+{
+
+}

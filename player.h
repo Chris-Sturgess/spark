@@ -10,6 +10,7 @@ namespace ents
 	class player : public ship
 	{
 	public:
+		player( ::trigger::ptriggerablemanager manager, const string& name );
 		virtual void update( float elapsed, const sf::Input& );
 	};
 

@@ -8,15 +8,15 @@ cell::cell() : _ships(), _world(b2Vec2(0,0))
 	_world.SetAllowSleeping(true);
 }
 
-void cell::add(string name, ents::pship ent)
+void cell::add(ents::pship ent)
 {
-	_ships[name] = ent;
+	_ships[ent->name()] = ent;
 	ent->loadIntoWorld(_world);
 }
 
-void cell::add(string name, ents::ptrigger ent)
+void cell::add(ents::ptrigger ent)
 {
-	_triggers[name] = ent;
+	_triggers[ent->name()] = ent;
 	ent->loadIntoWorld(_world);
 }
 

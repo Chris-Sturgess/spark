@@ -4,14 +4,24 @@
 #include "pch.h"
 #include "ship.h"
 
+using namespace placeholders;
+
 namespace ents
 {
-	ship::ship() : _physicsBody(nullptr), _imageName("ship.png")
+	ship::ship(::trigger::ptriggerablemanager manager, const string& n) : _physicsBody(nullptr), _imageName("ship.png"), _uniqueName(n)
 	{
 		_data._position = b2Vec2(0,0);
 		_data._linearVel = b2Vec2(0,0);
 		_data._angle = 0;
 		_data._angularVel = 0;
+		
+		_trigger = manager->createTriggerable(n);
+		_trigger->registerInput("thrust", [this](const string&, const stringlist& params) { 
+			stringstream parser = stringstream(params[0]);
+			float th;
+			parser >> th;
+			thrust(th);
+		});
 	}
 
 	void ship::update( float elapsed, const sf::Input& input )
@@ -126,6 +136,11 @@ namespace ents
 	std::string ship::imageName() const
 	{
 		return _imageName;
+	}
+
+	std::string ship::name() const
+	{
+		return _uniqueName;
 	}
 
 }

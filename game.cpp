@@ -11,13 +11,13 @@ using namespace placeholders;
 
 game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(new quests::quest()), _triggerManager(new ::trigger::triggerablemanager())
 {
-	_world.add("test", pplayer(new player()));
-	auto ent = pship(new ship());
+	_world.add(pplayer(new player(_triggerManager, "player")));
+	auto ent = pship(new ship(_triggerManager, "other"));
 	ent->position(b2Vec2(30, 30));
-	_world.add("test2", ent);
-	_world.add("testtrigger", ptrigger(new ents::trigger(_triggerManager, "testtrigger", 0, 30, 0, 20, 20)));
-	stringlist params; params.push_back("test.in");
-	_triggerManager->findTriggerable("testtrigger")->linkOutput("hit", "dialog", "run", params);
+	_world.add(ent);
+	_world.add(ptrigger(new ents::trigger(_triggerManager, "trigger", 0, 30, 0, 20, 20)));
+	stringlist params; params.push_back("0.001");
+	_triggerManager->findTriggerable("trigger")->linkOutput("hit", "other", "thrust", params);
 	_ms = new msgs::messagesystem(_qs, _triggerManager);
 
 	_dialogTriggerable = _triggerManager->createTriggerable("dialog");

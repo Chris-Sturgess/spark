@@ -4,7 +4,7 @@
 #include "trigger.h"
 
 
-ents::trigger::trigger( ::trigger::ptriggerablemanager manager, const string& name, float x, float y, float angle, float whe, float hhe ) : _physicsBody(nullptr), _bHasRun(false)
+ents::trigger::trigger( ::trigger::ptriggerablemanager manager, const string& name, float x, float y, float angle, float whe, float hhe ) : _physicsBody(nullptr), _bHasRun(false), _uniqueName(name)
 {
 	_data._position = b2Vec2(x, y);
 	_data._angle = angle;
@@ -66,4 +66,9 @@ void ents::trigger::unloadPhysics()
 	}
 	_physicsBody->GetWorld()->DestroyBody(_physicsBody);
 	_physicsBody = nullptr;
+}
+
+std::string ents::trigger::name() const
+{
+	return _uniqueName;
 }
