@@ -7,6 +7,8 @@
 #include "cell.h"
 #include "messagesystem.h"
 #include "quest.h"
+#include "triggerablemanager.h"
+
 class game
 {
 public:
@@ -45,5 +47,6 @@ private:
 
 	msgs::messagesystem* _ms;
 	shared_ptr<quests::quest> _qs;
+	trigger::ptriggerablemanager _triggerManager;
 };
 

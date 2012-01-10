@@ -7,7 +7,7 @@
 
 using namespace ents;
 
-game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(new quests::quest())
+game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(new quests::quest()), _triggerManager(new trigger::triggerablemanager())
 {
 	_world.add("test", pplayer(new player()));
 	_ms = new msgs::messagesystem(_qs);

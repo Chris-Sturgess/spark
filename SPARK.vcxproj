@@ -94,6 +94,7 @@
     <ClCompile Include="quest.cpp" />
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="resources.cpp" />
+    <ClCompile Include="trigger.cpp" />
     <ClCompile Include="triggerable.cpp" />
     <ClCompile Include="triggerablemanager.cpp" />
     <ClCompile Include="win32.cpp">
