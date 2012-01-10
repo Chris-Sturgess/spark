@@ -19,7 +19,6 @@ game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(
 	stringlist params; params.push_back("test.in");
 	_triggerManager->findTriggerable("testtrigger")->linkOutput("hit", "dialog", "run", params);
 	_ms = new msgs::messagesystem(_qs, _triggerManager);
-	_ms = new msgs::messagesystem(_qs);
 
 	_dialogTriggerable = _triggerManager->createTriggerable("dialog");
 	_dialogTriggerable->registerInput("run", bind( &game::dialogRunTrigger, this, _1, _2 ) );
@@ -98,5 +97,4 @@ void game::dialogRunTrigger( const string& name, const stringlist& params )
 {
 	_ms->loadScript(params[0]);
 	_ms->parseNextLine();
-}
 }
