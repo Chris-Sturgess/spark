@@ -10,12 +10,10 @@ using namespace ents;
 game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(new quests::quest())
 {
 	_world.add("test", pplayer(new player()));
-	_ms = new msgs::messagesystem(_qs);
 	auto ent = pship(new ship());
 	ent->position(b2Vec2(30, 30));
 	_world.add("test2", ent);
 	_ms = new msgs::messagesystem(_qs);
-	msgs::dialoguebox* db = _ms->createDialogueBox();
 	_ms->loadScript("test.in");
 }
 
