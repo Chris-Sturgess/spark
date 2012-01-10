@@ -10,6 +10,9 @@ namespace ents
 		// creates a trigger centered at x,y with the width and height half extents
 		trigger( float x, float y, float angle, float whe, float hhe );
 
+		// checks for contacts
+		void update( float elapsed );
+
 		// loads the ship into a physics world
 		void loadIntoWorld( b2World& );
 

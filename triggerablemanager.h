@@ -9,8 +9,6 @@ namespace trigger
 	class triggerablemanager : public enable_shared_from_this<triggerablemanager>
 	{
 	public:
-		triggerablemanager();
-
 		// creates a new triggerable for the system
 		ptriggerable createTriggerable( const string& name );
 

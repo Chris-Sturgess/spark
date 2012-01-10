@@ -39,3 +39,22 @@ void ents::trigger::loadIntoWorld( b2World& world )
 	fixture.isSensor = true;
 	_physicsBody->CreateFixture(&fixture);
 }
+
+void ents::trigger::update( float elapsed )
+{
+	auto contact = _physicsBody->GetContactList();
+	for(; contact != nullptr; contact = contact->next )
+	{
+		//contact->contact->get
+	}
+}
+
+void ents::trigger::unloadPhysics()
+{
+	if( _physicsBody == nullptr )
+	{
+		throw exception("oh shit...");
+	}
+	_physicsBody->GetWorld()->DestroyBody(_physicsBody);
+	_physicsBody = nullptr;
+}
