@@ -14,14 +14,30 @@ void cell::add(string name, ents::pship ent)
 	ent->loadIntoWorld(_world);
 }
 
+void cell::add(string name, ents::ptrigger ent)
+{
+	_triggers[name] = ent;
+	ent->loadIntoWorld(_world);
+}
+
 void cell::update(float elapsed, const sf::Input& input)
 {
 	_world.Step( 1.0f / elapsed, 6, 2);
-	auto begin = _ships.begin(),
-		end = _ships.end();
-	for( auto i = begin; i != end; i++ )
 	{
-		i->second->update(elapsed, input);
+		auto begin = _ships.begin(),
+			end = _ships.end();
+		for( auto i = begin; i != end; i++ )
+		{
+			i->second->update(elapsed, input);
+		}
+	}
+	{
+		auto begin = _triggers.begin(),
+			end = _triggers.end();
+		for( auto i = begin; i != end; i++ )
+		{
+			i->second->update(elapsed);
+		}
 	}
 }
 

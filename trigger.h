@@ -9,7 +9,7 @@ namespace ents
 	{
 	public:
 		// creates a trigger centered at x,y with the width and height half extents
-		trigger( ptriggerablemanager manager, const string& name, float x, float y, float angle, float whe, float hhe );
+		trigger( ::trigger::ptriggerablemanager manager, const string& name, float x, float y, float angle, float whe, float hhe );
 
 		// checks for contacts
 		void update( float elapsed );
@@ -32,6 +32,8 @@ namespace ents
 		b2Body* _physicsBody;
 
 		// the triggerable
-		ptriggerable _trigger;
+		::trigger::ptriggerable _trigger;
 	};
+
+	typedef shared_ptr<trigger> ptrigger;
 }

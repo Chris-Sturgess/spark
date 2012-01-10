@@ -33,6 +33,9 @@ private:
 	// processes a single event, returns false if there were none to handle
 	bool process( );
 
+	// triggerable function to run dialogs
+	void dialogRunTrigger( const string& name, const stringlist& params );
+
 
 	/* private data */
 
@@ -48,5 +51,8 @@ private:
 	msgs::messagesystem* _ms;
 	shared_ptr<quests::quest> _qs;
 	trigger::ptriggerablemanager _triggerManager;
+
+	// triggerable which represents dialog
+	trigger::ptriggerable _dialogTriggerable;
 };
 
