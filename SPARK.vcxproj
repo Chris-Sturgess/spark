@@ -83,6 +83,7 @@
     <ClCompile Include="cell.cpp" />
     <ClCompile Include="celldrawer.cpp" />
     <ClCompile Include="dialoguebox.cpp" />
+    <ClCompile Include="entity.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="messagesystem.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="cell.h" />
     <ClInclude Include="celldrawer.h" />
     <ClInclude Include="dialoguebox.h" />
+    <ClInclude Include="entity.h" />
     <ClInclude Include="entityexceptions.h" />
     <ClInclude Include="fileexceptions.h" />
     <ClInclude Include="game.h" />

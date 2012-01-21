@@ -77,8 +77,8 @@ namespace ents
 		def.angularVelocity = _data._angularVel;
 
 		// setup damping
-		def.linearDamping = 0.001f;
-		def.angularDamping = 0.001f;
+		def.linearDamping = 0.005f;
+		def.angularDamping = 0.005f;
 
 		// create the body
 		_physicsBody = world.CreateBody(&def);
@@ -90,8 +90,8 @@ namespace ents
 
 		b2FixtureDef fixture;
 		fixture.shape = &shape;
-		fixture.friction = 0.0f;
-		fixture.density = 5.0f;
+		fixture.friction = 0.1f;
+		fixture.density = 50.0f;
 		_physicsBody->CreateFixture(&fixture);
 	}
 
