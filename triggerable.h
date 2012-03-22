@@ -22,11 +22,12 @@ namespace trigger
 
 		// push function
 		template<typename T>
-		void push( const T& item )
+		arglist& push( const T& item )
 		{
 			stringstream str = stringstream();
 			str << item;
 			_internalList.push_back(str.str());
+			return *this;
 		}
 
 		// extracts an argument (copy & return)
@@ -104,3 +105,6 @@ namespace trigger
 
 	typedef shared_ptr<triggerable> ptriggerable;
 }
+
+// makes life 10x easier
+using ::trigger::arglist;

@@ -16,8 +16,7 @@ game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(
 	ent->position(b2Vec2(30, 30));
 	_world.add(ent);
 	_world.add(ptrigger(new ents::trigger(_triggerManager, "trigger", 0, 30, 0, 20, 20)));
-	stringlist params; params.push_back("test.in");
-	_triggerManager->findTriggerable("trigger")->linkOutput("hit", "dialog", "run", params);
+	_triggerManager->findTriggerable("trigger")->linkOutput("hit", "dialog", "run", arglist().push("test.in"));
 	_ms = new msgs::messagesystem(_qs, _triggerManager);
 
 	_dialogTriggerable = _triggerManager->createTriggerable("dialog");
