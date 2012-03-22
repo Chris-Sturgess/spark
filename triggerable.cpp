@@ -30,7 +30,7 @@ void trigger::triggerable::getRegisteredInputs( stringlist& out ) const
 	}
 }
 
-void trigger::triggerable::triggerInput( const string& name, const stringlist& args ) const
+void trigger::triggerable::triggerInput( const string& name, const arglist& args ) const
 {
 	// gets an iterator to the input
 	auto input = _inputs.find(name);
@@ -48,7 +48,7 @@ void trigger::triggerable::registerOutput( const string& name )
 	_outputs.insert( make_pair(name, vector<linkage>()) );
 }
 
-void trigger::triggerable::linkOutput( const string& outputName, const string& entName, const string& inputName, const stringlist& params /*= stringlist() */ )
+void trigger::triggerable::linkOutput( const string& outputName, const string& entName, const string& inputName, const arglist& params /*= stringlist() */ )
 {
 	// check to ensure this output actually exists
 	auto output = _outputs.find( outputName );

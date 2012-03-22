@@ -19,7 +19,7 @@ namespace trigger
 		ptriggerable findTriggerable( const string& name );
 
 		// runs an input on a triggerable (by name)
-		void runInput( const string& destinationEntity, const string& inputName, const stringlist& params );
+		void runInput( const string& destinationEntity, const string& inputName, const arglist& params );
 	private:
 		// map of triggerables
 		map< string, ptriggerable > _triggerables;

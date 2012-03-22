@@ -16,11 +16,8 @@ namespace ents
 		_data._angularVel = 0;
 		
 		_trigger = manager->createTriggerable(n);
-		_trigger->registerInput("thrust", [this](const string&, const stringlist& params) { 
-			stringstream parser = stringstream(params[0]);
-			float th;
-			parser >> th;
-			thrust(th);
+		_trigger->registerInput("thrust", [this](const string&, const ::trigger::arglist& params) { 
+			thrust(params.extract<float>(0));
 		});
 	}
 

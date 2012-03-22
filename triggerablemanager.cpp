@@ -21,7 +21,7 @@ trigger::ptriggerable trigger::triggerablemanager::findTriggerable( const string
 	return ptr->second;
 }
 
-void trigger::triggerablemanager::runInput( const string& destinationEntity, const string& inputName, const stringlist& params )
+void trigger::triggerablemanager::runInput( const string& destinationEntity, const string& inputName, const arglist& params )
 {
 	findTriggerable(destinationEntity)->triggerInput(inputName, params);
 }

@@ -21,8 +21,8 @@ game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(
 	_ms = new msgs::messagesystem(_qs, _triggerManager);
 
 	_dialogTriggerable = _triggerManager->createTriggerable("dialog");
-	_dialogTriggerable->registerInput("run", [this](const string&, const stringlist& params) {
-		_ms->loadScript(params[0]);
+	_dialogTriggerable->registerInput("run", [this](const string&, const ::trigger::arglist& params) {
+		_ms->loadScript(params.extract<string>(0));
 		_ms->parseNextLine();
 	});
 }
