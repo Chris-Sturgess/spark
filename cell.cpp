@@ -55,3 +55,18 @@ void cell::foreachShip( function<void(ents::pship)> f ) const
 		f(iter->second);
 	}
 }
+
+bool cell::trace( const b2Vec2& p, ents::pship& out ) const
+{
+	auto begin = _ships.begin(),
+		end = _ships.end();
+	for( auto iter = begin; iter != end; iter++ )
+	{
+		if(iter->second->trace(p))
+		{
+			out = iter->second;
+			return true;
+		}
+	}
+	return false;
+}

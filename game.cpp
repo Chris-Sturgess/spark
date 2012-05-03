@@ -15,8 +15,8 @@ game::game( sf::RenderWindow& window ) : _window(window), _state(GS_WORLD), _qs(
 	auto ent = pship(new ship(_triggerManager, "other"));
 	ent->position(b2Vec2(30, 30));
 	_world.add(ent);
-	_world.add(ptrigger(new ents::trigger(_triggerManager, "trigger", 0, 30, 0, 20, 20)));
-	_triggerManager->findTriggerable("trigger")->linkOutput("hit", "dialog", "run", arglist().push("test.in"));
+	//_world.add(ptrigger(new ents::trigger(_triggerManager, "trigger", 0, 30, 0, 20, 20)));
+	_triggerManager->findTriggerable("other")->linkOutput("use", "dialog", "run", arglist().push("test.in"));
 	_ms = new msgs::messagesystem(_qs, _triggerManager);
 
 	_dialogTriggerable = _triggerManager->createTriggerable("dialog");
@@ -85,6 +85,17 @@ bool game::process()
 
 	// handle the event
 	switch( e.Type ) {
+
+	case Event::MouseButtonReleased:
+		if( e.MouseButton.Button == sf::Mouse::Button::Right )
+		{
+			ents::pship result;
+			if( _world.trace(b2Vec2(e.MouseButton.X/7.0f, e.MouseButton.Y/7.0f), result) )
+			{
+				result->use(nullptr);
+			}
+		}
+		break;
 
 	case Event::Closed:	// window close button is clicked
 		clog << "Window closing" << endl;

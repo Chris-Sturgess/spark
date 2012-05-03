@@ -19,6 +19,7 @@ namespace ents
 		_trigger->registerInput("thrust", [this](const string&, const ::trigger::arglist& params) { 
 			thrust(params.extract<float>(0));
 		});
+		_trigger->registerOutput("use");
 	}
 
 	void ship::update( float elapsed, const sf::Input& input )
@@ -80,6 +81,7 @@ namespace ents
 		// create the body
 		_physicsBody = world.CreateBody(&def);
 		_physicsBody->SetSleepingAllowed(false);
+		_physicsBody->SetUserData( this );
 
 		// create a shape for the entity
 		b2PolygonShape shape;
@@ -138,6 +140,21 @@ namespace ents
 	std::string ship::name() const
 	{
 		return _uniqueName;
+	}
+
+	void ship::use( pship user )
+	{
+		_trigger->callOutput("use");
+	}
+
+	bool ship::trace( const b2Vec2& p ) const
+	{
+		if( _physicsBody == nullptr )
+		{
+			throw exception("can not trace: physics has been unloaded");
+		}
+		b2Fixture& fixture = _physicsBody->GetFixtureList()[0];
+		return fixture.GetShape()->TestPoint(_physicsBody->GetTransform(), p);
 	}
 
 }

@@ -12,15 +12,15 @@ class cell
 public:
 	cell();
 
-	// draws the cell
-	void render(sf::RenderTarget&) const;
-
 	// updates the cell
 	void update(float elapsed, const sf::Input&);
 
 	// adds a new ship to the cell
 	void add(ents::pship);
 	void add(ents::ptrigger);
+
+	// runs a trace-line
+	bool trace( const b2Vec2&, ents::pship& ) const;
 
 	// returns the cell's physically simulated world
 	b2World& world();

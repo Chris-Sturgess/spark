@@ -8,6 +8,9 @@
 
 namespace ents
 {
+	class ship;
+	typedef shared_ptr<ship> pship;
+
 	class ship
 	{
 	public:
@@ -39,8 +42,14 @@ namespace ents
 		// adds thrust
 		void thrust( float amount );
 
+		// runs a trace on the ship
+		bool trace( const b2Vec2& ) const;
+
 		// adds angular thrust
 		void angularThrust( float amount );
+
+		// called when the ship is "used"
+		void use( pship user );
 
 		// gets the image associated with the ship
 		string imageName() const;
@@ -66,6 +75,4 @@ namespace ents
 		// triggerable
 		::trigger::ptriggerable _trigger;
 	};
-
-	typedef shared_ptr<ship> pship;
 }
